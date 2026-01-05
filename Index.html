@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urban Eats - Food Delivery Service</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff6b6b;
+      --secondary: #4ecdc4;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --accent: #ffd166;
+      --success: #06d6a0;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background-color: #f8f9fa;
+      color: #333;
+      overflow-x: hidden;
+    }
+    
+    /* Navbar */
+    #navbar {
+  background-color: rgba(0, 0, 0, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  padding: 15px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+    #navbar.scrolled {
+      padding: 10px 0;
+      background-color: rgba(0, 0, 0, 0.98);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--accent) !important;
+      font-size: 1.8rem;
+  
+      align-items: center;
+    }
+    
+    .navbar-brand i {
+      margin-right: 10px;
+      font-size: 1.5rem;
+    }
+    
+    #navbarNav a {
+      color: var(--light) !important;
+      font-weight: 500;
+      margin: 0 10px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    #navbarNav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    #navbarNav a:hover::after,
+    #navbarNav a.active::after {
+      width: 100%;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+  
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+              url(image/delicious-indian-food-tray.jpg) no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  color: white;
+  margin-top: 100px;
+  padding-top: 80px; 
+  height: 700px; 
+}
+    
+    .hero-content {
+      max-width: 600px;
+    }
+    
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      border: none;
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #ff5252;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+    }
+    
+    .btn-outline-light {
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline-light:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Features Section */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 50px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 4px;
+      bottom: -10px;
+      left: 0;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+    
+    .feature-box {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s ease;
+      height: 100%;
+      text-align: center;
+    }
+    
+    .feature-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+    
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--dark);
+    }
+
+
+     /* Order Options Styling */
+  .order-options h3 {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .order-options .btn-outline-primary {
+    min-width: 120px;
+    border-width: 2px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .order-options .btn-outline-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 px 8px rgba(0,0,0,0.1);
+  }
+  
+  .order-options .btn-outline-primary.active {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+  }
+  
+  /* Navigation Tabs Styling */
+  .order-type-nav {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .nav-links-container {
+    position: relative;
+    display: inline-flex;
+    background: #f8f9fa;
+    border-radius: 50px;
+    padding: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .nav-link {
+    position: relative;
+    padding: 0.75rem 2rem;
+    color: #495057;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 50px;
+    z-index: 1;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .nav-link:hover {
+    color: #0d6efd;
+  }
+  
+  .nav-link.active {
+    color: white;
+  }
+  
+  .active-indicator {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: calc(100% - 10px);
+    width: calc(50% - 10px);
+    background-color: #0d6efd;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-link:nth-child(1).active ~ .active-indicator {
+    transform: translateX(0);
+  }
+  
+  .nav-link:nth-child(2).active ~ .active-indicator {
+    transform: translateX(100%);
+  }
+  
+  .nav-content {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    margin-top: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .nav-content p {
+    color: #6c757d;
+    margin-bottom: 0;
+    font-size: 1.1rem;
+  }
+  
+ 
+    
+    /* Restaurants Section */
+    .restaurants-section {
+      background-color: #f1f3f5;
+      padding: 80px 0;
+    }
+    
+    .restaurant-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+    }
+    
+    .restaurant-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .card-body {
+      padding: 20px;
+    }
+    
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .card-text {
+      color: #6c757d;
+      margin-bottom: 15px;
+    }
+    
+    .badge {
+      background-color: var(--secondary);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: 500;
+    }
+    
+    .rating {
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    
+    /* About Section */
+    .about-section {
+      padding: 80px 0;
+      background-color: white;
+    }
+    
+    .about-img {
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .about-img:hover {
+      transform: scale(1.02);
+    }
+    
+    .about-content h2 {
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+    
+    .about-content p {
+      color: #6c757d;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      color: #6c757d;
+      font-weight: 500;
+    }
+    
+    /* Testimonials */
+    .testimonials-section {
+      background-color: var(--dark);
+      color: white;
+      padding: 80px 0;
+    }
+    
+    .testimonial-card {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 15px;
+      transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .testimonial-text::before {
+      content: '"';
+      font-size: 3rem;
+      color: rgba(255, 255, 255, 0.2);
+      position: absolute;
+      top: -20px;
+      left: -10px;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+    
+    .author-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+    
+    .author-name {
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    
+    .author-title {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+    
+    /* Newsletter */
+    .newsletter-section {
+      padding: 60px 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+    
+    .newsletter-title {
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .newsletter-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .form-control {
+      border: none;
+      border-radius: 50px;
+      padding: 15px 20px;
+    }
+    
+    .btn-newsletter {
+      background-color: white;
+      color: var(--primary);
+      border: none;
+      border-radius: 50px;
+      padding: 15px 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-newsletter:hover {
+      background-color: var(--dark);
+      color: white;
+      transform: translateY(-3px);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 60px 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    
+    .footer-about p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 20px;
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: white;
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+      padding-left: 5px;
+    }
+    
+    .footer-contact p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .footer-contact i {
+      margin-right: 10px;
+      color: var(--accent);
+    }
+    
+    .copyright {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      margin-top: 40px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+
+    
+
+  #restaurantCarousel {
+    position: relative;
+    padding: 0 40px; /* Make space for controls */
+  }
+  
+  #restaurantCarousel .carousel-control-prev,
+  #restaurantCarousel .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    border: none;
+  }
+  
+  #restaurantCarousel .carousel-control-prev {
+    left: -25px;
+  }
+  
+  #restaurantCarousel .carousel-control-next {
+    right: -25px;
+  }
+  
+  #restaurantCarousel .carousel-control-prev:hover,
+  #restaurantCarousel .carousel-control-next:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  #restaurantCarousel .carousel-control-prev-icon,
+  #restaurantCarousel .carousel-control-next-icon {
+    width: 25px;
+    height: 25px;
+    background-size: 100% 100%;
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(200deg) brightness(100%) contrast(95%);
+  }
+   
+  
+  /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+    
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .delay-1 {
+      transition-delay: 0.2s;
+    }
+    
+    .delay-2 {
+      transition-delay: 0.4s;
+    }
+    
+    .delay-3 {
+      transition-delay: 0.6s;
+    }
+    
+    /* Mobile Menu */
+    .navbar-toggler {
+      border: none;
+      padding: 0;
+      font-size: 1.5rem;
+      color: white;
+    }
+    
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 2.8rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .stats {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      
+      .btn-primary, .btn-outline-light {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Ensure consistent card heights */
+.restaurant-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant-card .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant-card .card-body .card-text {
+  flex-grow: 1;
+}
+
+/* Ensure consistent image heights */
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Auth System Styles */
+.auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.auth-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.auth-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 100%;
+  max-width: 450px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.auth-container.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.auth-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.auth-close:hover {
+  background-color: #e9ecef;
+}
+
+.auth-close i {
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+
+.auth-content {
+  padding: 40px;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-header h3 {
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.auth-header p {
+  color: #6c757d;
+  margin-bottom: 0;
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--dark);
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem rgba(255, 107, 107, 0.25);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.forgot-password {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.auth-divider {
+  position: relative;
+  margin: 25px 0;
+  text-align: center;
+}
+
+.auth-divider span {
+  display: inline-block;
+  padding: 0 10px;
+  background-color: white;
+  position: relative;
+  z-index: 1;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.auth-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #eee;
+  z-index: 0;
+}
+
+.social-login .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #6c757d;
+}
+
+.auth-footer a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Hide home content when auth is active */
+body.auth-active #homeContent {
+  opacity: 0.2;
+  pointer-events: none;
+  filter: blur(2px);
+  transition: all 0.3s ease;
+}
+
+/* Success message styling */
+.success-message {
+  display: none;
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.success-message i {
+  margin-right: 10px;
+}
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-utensils"></i>URBAN EATS
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#restaurants">Restaurants</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#testimonials">Testimonials</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+          <li class="nav-item ms-lg-3">
+            <button id="authBtn" class="btn btn-primary btn-sm mt-2 mt-lg-0">
+              <i class="fas fa-sign-in-alt me-1"></i> Login
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="home">
+    <div class="container">
+      <div class="hero-content fade-in">
+        <h1 class="hero-title">Delicious Food Delivered To Your Doorstep</h1>
+        <p class="hero-subtitle">Order from your favorite local restaurants with just a few taps and enjoy fresh, hot meals in minutes.</p>
+        <div class="d-flex gap-3">
+          <a href="#restaurants" class="btn btn-primary">
+            <i class="fas fa-utensils me-2"></i> Order Now
+          </a>
+         
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-5 my-5">
+    <div class="container">
+      <h2 class="section-title text-center fade-in">Why Choose Urban Eats</h2>
+      <div class="row g-4 mt-4">
+        <div class="col-md-4 fade-in delay-1">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3 class="feature-title">Fast Delivery</h3>
+            <p>Get your food delivered in under 30 minutes with our optimized delivery network and real-time tracking.</p>
+          </div>
+        </div>
+        <div class="col-md-4 fade-in delay-2">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <h3 class="feature-title">Diverse Cuisines</h3>
+            <p>Choose from hundreds of restaurants offering various cuisines to satisfy all your cravings.</p>
+          </div>
+        </div>
+        <div class="col-md-4 fade-in delay-3">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="feature-title">Safe & Secure</h3>
+            <p>Contactless delivery options and secure payment methods for your peace of mind.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="restaurants-section py-5" id="restaurants">
+  <div class="container">
+    <!-- Order Options -->
+    
+   
+    
+    <!-- Online Order | Dine-in Navigation -->
+    <div class="order-type-nav mt-5 fade-in delay-2">
+      <div class="d-flex justify-content-center">
+        <div class="nav-links-container">
+          <a href="" class="nav-link active">
+            <i class="fas fa-mobile-alt me-2"></i> Online Order
+          </a>
+          <a href="dinein.html" class="nav-link">
+            <i class="fas fa-utensils me-2"></i> Dine-in
+          </a>
+          <div class="active-indicator"></div>
+        </div>
+      </div>
+    </div>
+</section>
+
+  <!-- Restaurants Section -->
+ <section class="restaurants-section py-5" id="restaurants">
+    <div class="container">
+      <h2 class="section-title text-center fade-in">Popular Restaurants</h2>
+      <p class="text-center mb-5 fade-in delay-1">Browse through our top-rated partner restaurants</p>
+      
+      <div id="restaurantCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+        
+          <div class="carousel-item active">
+            <div class="row g-4">
+              <!-- Restaurant 1 -->
+              <div class="col-lg-3 col-md-6 fade-in">
+                <div class="restaurant-card card">
+                  <img src="image/pepperoni-pizza-with-olives-wooden-board.jpg" class="card-img-top" alt="Burger">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="card-title mb-0">Pizza Hut</h5>
+                      <span class="badge">4.5</span>
+                    </div>
+                    <div class="rating mb-2">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="card-text">American • Burgers • Fast Food</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-muted"><i class="fas fa-clock me-1"></i> 20-30 min</span>
+                      <a href="OnlineOrder.html" class="btn btn-sm btn-outline-primary">View Menu</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Restaurant 2 -->
+              <div class="col-lg-3 col-md-6 fade-in delay-1">
+                <div class="restaurant-card card">
+                  <img src="image/front-view-tasty-meat-burger-with-cheese-salad-dark-background.jpg" class="card-img-top" alt="Pizza">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="card-title mb-0">Burger King</h5>
+                      <span class="badge">4.3</span>
+                    </div>
+                    <div class="rating mb-2">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </div>
+                    <p class="card-text">Burger • American </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-muted"><i class="fas fa-clock me-1"></i> 25-35 min</span>
+                      <a href="burgerking.html" class="btn btn-sm btn-outline-primary">View Menu</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Restaurant 3 -->
+              <div class="col-lg-3 col-md-6 fade-in delay-2">
+                <div class="restaurant-card card">
+                  <img src="image/curry-with-chicken-onions-indian-food-asian-cuisine.jpg" class="card-img-top" alt="Sushi">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="card-title mb-0">Dindigul Thalappalatti </h5>
+                      <span class="badge">4.7</span>
+                    </div>
+                    <div class="rating mb-2">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <p class="card-text">Briyani • South Indian </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-muted"><i class="fas fa-clock me-1"></i> 30-40 min</span>
+                      <a href="thalapakatti.html" class="btn btn-sm btn-outline-primary">View Menu</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Restaurant 4 -->
+              <div class="col-lg-3 col-md-6 fade-in delay-3">
+                <div class="restaurant-card card">
+                  <img src="image/close-up-appetizing-ramadan-meal.jpg" class="card-img-top" alt="Tacos">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="card-title mb-0">Cock Ro Ko</h5>
+                      <span class="badge">4.4</span>
+                    </div>
+                    <div class="rating mb-2">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </div>
+                    <p class="card-text">Briyani • Barbeque • Burritos</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-muted"><i class="fas fa-clock me-1"></i> 15-25 min</span>
+                      <a href="cockroko.html" class="btn btn-sm btn-outline-primary">View Menu</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+       
+          <div class="carousel-item">
+            <div class="row g-4">
+              <!-- Restaurant 5 -->
+              <div class="col-lg-3 col-md-6 fade-in">
+                <div class="restaurant-card card">
+                  <img src="image/delicious-indian-food-tray.jpg" class="card-img-top" alt="Salad">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="card-title mb-0">Green Leaf</h5>
+                      <span class="badge">4.6</span>
+                    </div>
+                    <div class="rating mb-2">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="card-text">Briyani • North Indian • Vegan</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-muted"><i class="fas fa-clock me-1"></i> 10-20 min</span>
+                      <a href="greenleaf.html" class="btn btn-sm btn-outline-primary">View Menu</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Restaurant 6 -->
+              <div class="col-lg-3 col-md-6 fade-in delay-1">
+                <div class="restaurant-card card">
+                  <img src="image/curry-with-chicken-onions-indian-food-asian-cuisine.jpg" class="card-img-top" alt="Pasta">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="card-title mb-0">Valarmathi  Kongunadu</h5>
+                      <span class="badge">4.8</span>
+                    </div>
+                    <div class="rating mb-2">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <p class="card-text">Briyani • South Indian • snacks</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-muted"><i class="fas fa-clock me-1"></i> 25-35 min</span>
+                      <a href="valarmathi.html" class="btn btn-sm btn-outline-primary">View Menu</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Restaurant 7 -->
+              <div class="col-lg-3 col-md-6 fade-in delay-2">
+                <div class="restaurant-card card">
+                  <img src="image/delicious-chocolate-cake-with-flower.jpg" class="card-img-top" alt="BBQ">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="card-title mb-0">Appa Hotel</h5>
+                      <span class="badge">4.5</span>
+                    </div>
+                    <div class="rating mb-2">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </div>
+                    <p class="card-text">Dessert • Snacks • Fresh Juice</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-muted"><i class="fas fa-clock me-1"></i> 30-45 min</span>
+                      <a href="appa.html" class="btn btn-sm btn-outline-primary">View Menu</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Restaurant 8 -->
+              <div class="col-lg-3 col-md-6 fade-in delay-3">
+                <div class="restaurant-card card">
+                  <img src="image/indulgent-homemade-chocolate-brownie-fresh-sweet-generated-by-ai.jpg" class="card-img-top" alt="Indian">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h5 class="card-title mb-0">Madras Cafe</h5>
+                      <span class="badge">4.9</span>
+                    </div>
+                    <div class="rating mb-2">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <p class="card-text">Dessert • Ice cream • Brownie</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="text-muted"><i class="fas fa-clock me-1"></i> 20-30 min</span>
+                      <a href="#" class="btn btn-sm btn-outline-primary">View Menu</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Carousel controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#restaurantCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#restaurantCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+      </div>
+      
+     
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section py-5" id="about">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0 fade-in">
+          <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="About Urban Eats" class="img-fluid about-img">
+        </div>
+        <div class="col-lg-6 fade-in delay-1">
+          <div class="about-content">
+            <h2>About Urban Eats</h2>
+            <p>Urban Eats was founded in 2020 with a simple mission: to connect people with the best local restaurants in their area. We believe that great food should be accessible to everyone, no matter how busy your schedule is.</p>
+            <p>Our platform makes it easy to discover new dining options, place orders in seconds, and track your delivery in real-time. We partner with top-rated restaurants to ensure you get the highest quality meals delivered fresh to your door.</p>
+            
+            <div class="stats">
+              <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Restaurants</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">Happy Customers</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Cities</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section py-5" id="testimonials">
+    <div class="container">
+      <h2 class="section-title text-center text-white fade-in">What Our Customers Say</h2>
+      <p class="text-center mb-5 text-white-50 fade-in delay-1">Don't just take our word for it - hear from our satisfied customers</p>
+      
+      <div class="row">
+        <div class="col-lg-4 mb-4 fade-in">
+          <div class="testimonial-card">
+            <p class="testimonial-text">Urban Eats has completely changed how I order food. The delivery is always fast and the food arrives hot and fresh. Highly recommended!</p>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J." class="author-img">
+              <div>
+                <h5 class="author-name">Jani</h5>
+                <p class="author-title">Regular Customer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 mb-4 fade-in delay-1">
+          <div class="testimonial-card">
+            <p class="testimonial-text">I love the variety of restaurants available on Urban Eats. It's my go-to app whenever I want to try something new or order from my favorites.</p>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T." class="author-img">
+              <div>
+                <h5 class="author-name">Jeeva</h5>
+                <p class="author-title">Food Enthusiast</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 mb-4 fade-in delay-2">
+          <div class="testimonial-card">
+            <p class="testimonial-text">The customer service is outstanding. When there was a small issue with my order, they resolved it immediately. Five-star experience!</p>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily R." class="author-img">
+              <div>
+                <h5 class="author-name">Sam</h5>
+                <p class="author-title">First-time User</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section py-5">
+    <div class="container text-center fade-in">
+      <h2 class="newsletter-title">Get 10% Off Your First Order</h2>
+      <p class="mb-4">Subscribe to our newsletter and receive exclusive deals and updates</p>
+      
+      <form class="newsletter-form">
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Your email address" required>
+          <button class="btn btn-newsletter" type="submit">
+            <i class="fas fa-paper-plane me-2"></i> Subscribe
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Auth Overlay -->
+<div id="authOverlay" class="auth-overlay"></div>
+
+<!-- login form -->
+<div id="authContainer" class="auth-container">
+  <div class="auth-close" id="authClose">
+    <i class="fas fa-times"></i>
+  </div>
+  
+  <div class="auth-content">
+    <!-- Success message for registration -->
+    <div id="registrationSuccess" class="success-message">
+      <i class="fas fa-check-circle"></i> Registration successful! Please login with your credentials.
+    </div>
+    
+    <div id="loginForm" class="auth-form active">
+      <div class="auth-header">
+        <h3>Welcome Back</h3>
+        <p>Login to your Urban Eats account</p>
+      </div>
+      
+      <form class="auth-form-body" name="loginForm" action="LoginServlet" method="POST">
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" name="email" class="form-control" placeholder="Enter your email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="password" class="form-control" placeholder="Enter your password" required>
+        </div>
+        
+        <div class="form-options">
+          <div class="form-check">
+            <input type="checkbox" id="rememberMe" name="rememberMe" class="form-check-input">
+            <label for="rememberMe" class="form-check-label">Remember me</label>
+          </div>
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+        
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+        
+        <div class="auth-divider">
+          <span>or</span>
+        </div>
+        
+        <div class="social-login">
+          <button type="button" class="btn btn-outline-secondary w-100 mb-2">
+            <i class="fab fa-google me-2"></i> Continue with Google
+          </button>
+          <button type="button" class="btn btn-outline-secondary w-100">
+            <i class="fab fa-facebook-f me-2"></i> Continue with Facebook
+          </button>
+        </div>
+      </form>
+      
+      <div class="auth-footer">
+        Don't have an account? <a href="#" id="showRegister">Sign up</a>
+      </div>
+    </div>
+    
+    <!-- Register Form -->
+    <div id="registerForm" class="auth-form">
+      <div class="auth-header">
+        <h3>Create Account</h3>
+        <p>Join Urban Eats to start ordering</p>
+      </div>
+      
+      <form class="auth-form-body" name="registerForm" id="registerFormElement">
+        <div class="form-group">
+          <label for="registerName">Full Name</label>
+          <input type="text" id="registerName" name="fullname" class="form-control" placeholder="Enter your full name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="registerEmail">Email Address</label>
+          <input type="email" id="registerEmail" name="email" class="form-control" placeholder="Enter your email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="registerPassword">Password</label>
+          <input type="password" id="registerPassword" name="password" class="form-control" placeholder="Create a password" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="registerConfirmPassword">Confirm Password</label>
+          <input type="password" id="registerConfirmPassword" name="confirmpassword" class="form-control" placeholder="Confirm your password" required>
+        </div>
+        
+        <div class="form-check mb-3">
+          <input type="checkbox" id="acceptTerms" name="acceptTerms" class="form-check-input" required>
+          <label for="acceptTerms" class="form-check-label">
+            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+          </label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary w-100">Create Account</button>
+      </form>
+      
+      <div class="auth-footer">
+        Already have an account? <a href="#" id="showLogin">Sign in</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="footer-about">
+            <a href="#" class="footer-logo">
+              <i class="fas fa-utensils me-2"></i>URBAN EATS
+            </a>
+            <p>Delivering happiness one meal at a time. Urban Eats connects you with the best local restaurants for a seamless food delivery experience.</p>
+            <div class="social-icons">
+              <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-4">
+          <h5 class="footer-title">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#restaurants">Restaurants</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-2 col-md-4">
+          <h5 class="footer-title">Support</h5>
+          <ul class="footer-links">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Safety Center</a></li>
+            <li><a href="#">Community Guidelines</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-4 col-md-4">
+          <h5 class="footer-title">Contact Us</h5>
+          <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i> Namakkal, Tamil Nadu, India</p>
+            <p><i class="fas fa-phone-alt"></i> +91 98765 43210</p>
+            <p><i class="fas fa-envelope"></i> support@urbaneats.com</p>
+            <p><i class="fas fa-clock"></i> Mon-Sun: 8:00 AM - 10:00 PM</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2023 Urban Eats. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="btn btn-primary btn-floating" id="back-to-top" style="position: fixed; bottom: 20px; right: 20px; display: none; border-radius: 50%; width: 50px; height: 50px; text-align: center; line-height: 50px;">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 70,
+            behavior: 'smooth'
+          });
+          
+          // Update active nav link
+          document.querySelectorAll('#navbarNav a').forEach(link => {
+            link.classList.remove('active');
+          });
+          this.classList.add('active');
+        }
+      });
+    });
+    
+    // Back to top button
+    const backToTopButton = document.getElementById('back-to-top');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        backToTopButton.style.display = 'block';
+      } else {
+        backToTopButton.style.display = 'none';
+      }
+    });
+    
+    backToTopButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+        // Intersection Observer for fade-in animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          // Unobserve after animation to improve performance
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1, // Trigger when 10% of element is visible
+      rootMargin: '0px 0px -50px 0px' 
+    });
+    
+    // Observe all fade-in elements
+    fadeElements.forEach(element => {
+      fadeObserver.observe(element);
+    });
+    
+    // Mobile menu close on click
+    const navLinks = document.querySelectorAll('#navbarNav a');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (navbarCollapse.classList.contains('show')) {
+          navbarToggler.click(); // This will close the mobile menu
+        }
+      });
+    });
+
+
+    // Auth System
+const authBtn = document.getElementById('authBtn');
+const authOverlay = document.getElementById('authOverlay');
+const authContainer = document.getElementById('authContainer');
+const authClose = document.getElementById('authClose');
+const showRegister = document.getElementById('showRegister');
+const showLogin = document.getElementById('showLogin');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+const registerFormElement = document.getElementById('registerFormElement');
+const registrationSuccess = document.getElementById('registrationSuccess');
+
+// Toggle auth forms
+function toggleAuthForms() {
+  loginForm.classList.toggle('active');
+  registerForm.classList.toggle('active');
+  // Hide success message when switching forms
+  registrationSuccess.style.display = 'none';
+}
+
+// Show auth modal
+function showAuthModal() {
+  document.body.classList.add('auth-active');
+  authOverlay.classList.add('active');
+  authContainer.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// Hide auth modal
+function hideAuthModal() {
+  document.body.classList.remove('auth-active');
+  authOverlay.classList.remove('active');
+  authContainer.classList.remove('active');
+  document.body.style.overflow = '';
+  // Reset forms when closing modal
+  registrationSuccess.style.display = 'none';
+  loginForm.classList.add('active');
+  registerForm.classList.remove('active');
+}
+
+// Event listeners
+authBtn.addEventListener('click', showAuthModal);
+authOverlay.addEventListener('click', hideAuthModal);
+authClose.addEventListener('click', hideAuthModal);
+
+showRegister.addEventListener('click', function(e) {
+  e.preventDefault();
+  toggleAuthForms();
+});
+
+showLogin.addEventListener('click', function(e) {
+  e.preventDefault();
+  toggleAuthForms();
+});
+
+// Close when clicking outside content
+authContainer.addEventListener('click', function(e) {
+  e.stopPropagation();
+});
+
+// Handle registration form submission
+registerFormElement.addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Get form values
+  const name = document.getElementById('registerName').value;
+  const email = document.getElementById('registerEmail').value;
+  const password = document.getElementById('registerPassword').value;
+  const confirmPassword = document.getElementById('registerConfirmPassword').value;
+  
+  // Simple validation
+  if (password !== confirmPassword) {
+    alert('Passwords do not match!');
+    return;
+  }
+  
+  // In a real application, you would send this data to a server
+  // For demo purposes, we'll just simulate a successful registration
+  
+  // Simulate API call with timeout
+  setTimeout(function() {
+    // Show success message
+    registrationSuccess.style.display = 'block';
+    
+    // Switch to login form after a brief delay
+    setTimeout(function() {
+      loginForm.classList.add('active');
+      registerForm.classList.remove('active');
+      
+      // Pre-fill the email field in login form
+      document.getElementById('loginEmail').value = email;
+    }, 1500);
+    
+    // Reset registration form
+    registerFormElement.reset();
+  }, 1000);
+});
+
+// Handle login form submission
+document.querySelector('form[name="loginForm"]').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Get form values
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  
+  // In a real application, you would send this data to a server for authentication
+  // For demo purposes, we'll just show an alert and close the modal
+  
+  // Simulate API call with timeout
+  setTimeout(function() {
+    alert('Login successful! Welcome to Urban Eats.');
+    hideAuthModal();
+  }, 1000);
+});
+    
+    
+  </script>
+</body>
+</html>

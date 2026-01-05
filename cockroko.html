@@ -1,0 +1,1118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Eats - Cock Ro Chicken Specialties</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #D35400;
+            --secondary: #FFF8F1;
+            --accent: #F5B041;
+            --dark: #2E2E2E;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            background-color: var(--light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+        }
+        
+        #navbar {
+            background-color: rgba(46, 46, 46, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        #navbar.scrolled {
+            padding: 10px 0;
+            background-color: rgba(46, 46, 46, 0.98);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--accent) !important;
+            font-size: 1.8rem;
+            align-items: center;
+        }
+        
+        .navbar-brand i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        #navbarNav a {
+            color: var(--light) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        #navbarNav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        #navbarNav a:hover::after,
+        #navbarNav a.active::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .restaurant-header {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            margin-top: 20px;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+        }
+        
+        .offer-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .offer-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .food-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .food-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .food-item {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        .food-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .food-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+        
+        .cart-item {
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        footer {
+            background-color: #000;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .footer-contact p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .divider {
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            margin: 2rem 0;
+            border-radius: 3px;
+        }
+        
+        .floating-cart {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Form validation styles */
+        .is-invalid {
+            border-color: #dc3545;
+        }
+        
+        .is-invalid:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+        
+        .invalid-feedback {
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+            color: #dc3545;
+        }
+        
+        /* Toast notification */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1100;
+        }
+        
+        /* Order Confirmation Modal */
+        .order-confirmation-icon {
+            font-size: 5rem;
+            color: #28a745;
+            margin-bottom: 1.5rem;
+        }
+        
+        .order-details {
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+   <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-utensils"></i>URBAN EATS
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+                <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                   <a class="nav-link" href="#offers">Offers</a>
+                    </li>
+                    <li class="nav-item">
+                 <a class="nav-link" href="#contect">Contact</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+   
+    <!-- Restaurant Header -->
+    <div class="container mt-4">
+        <div class="restaurant-header text-center p-4 rounded">
+            <h1 class="display-4 fw-bold">Cock Ro Chicken Specialties</h1>
+            <p class="lead">Authentic Flame-Grilled Chicken - A Legacy Since 1989</p>
+            <div class="rating mb-3">
+                <span class="text-warning"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                <span class="text-white ms-2">4.6 (3,200+ ratings)</span>
+            </div>
+            <p class="mb-0"><i class="fas fa-clock me-2"></i> Opens 10:00 AM - 11:30 PM</p>
+        </div>
+    </div>
+
+    <!-- Restaurant Info -->
+    <div class="container my-5">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="img-fluid rounded shadow" alt="Cock Ro Chicken" style="max-height: 250px;">
+            </div>
+            <div class="col-md-8">
+                <h2 class="fw-bold text-dark mb-3">About Cock Ro</h2>
+                <p class="lead">Cock Ro is a premium chicken restaurant known for its flame-grilled specialties. Founded in 1989 in Chennai, we've perfected the art of chicken preparation with secret marinades and cooking techniques that deliver unmatched flavor.</p>
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <span class="badge bg-light text-dark p-2"><i class="fas fa-biking me-2"></i> Free Delivery</span>
+                    <span class="badge bg-light text-dark p-2"><i class="fas fa-clock me-2"></i> 25 Min Delivery</span>
+                    <span class="badge bg-light text-dark p-2"><i class="fas fa-utensils me-2"></i> Dine-in Available</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider container"></div>
+
+    <!-- Offers Section -->
+    <div class="container my-5">
+        <h2 class="section-title fw-bold">Special Offers</h2>
+        <div class="row g-4">
+            <!-- Offer 1 -->
+            <div class="col-md-4">
+                <div class="offer-card card h-100">
+                    <div class="card-body text-center">
+                        <div class="bg-danger bg-opacity-10 p-3 rounded mb-3">
+                            <i class="fas fa-utensils text-danger fa-3x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Family Feast ₹899</h5>
+                        <p class="card-text text-muted">Get 1 Whole Chicken + 4 Sides + 4 Drinks at special price.</p>
+                        <span class="badge bg-danger">Today Only</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Offer 2 -->
+            <div class="col-md-4">
+                <div class="offer-card card h-100">
+                    <div class="card-body text-center">
+                        <div class="bg-success bg-opacity-10 p-3 rounded mb-3">
+                            <i class="fas fa-tag text-success fa-3x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">₹150 OFF</h5>
+                        <p class="card-text text-muted">On orders above ₹699. Use code: <strong>COCKRO150</strong></p>
+                        <span class="badge bg-success">New Users</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Offer 3 -->
+            <div class="col-md-4">
+                <div class="offer-card card h-100">
+                    <div class="card-body text-center">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded mb-3">
+                            <i class="fas fa-gift text-primary fa-3x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Free Garlic Bread</h5>
+                        <p class="card-text text-muted">Get free Garlic Bread with any whole chicken purchase.</p>
+                        <span class="badge bg-primary">Limited Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider container"></div>
+
+    <!-- Popular Items -->
+    <div class="container my-5">
+        <h2 class="section-title fw-bold">Most Popular Items</h2>
+        <div class="row g-4">
+            <!-- Item 1 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="food-card card h-100">
+                    <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Flame Grilled Chicken">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Flame Grilled Chicken</h5>
+                        <p class="card-text text-muted">Signature flame-grilled whole chicken with special marinade</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 text-dark fw-bold">₹599</h6>
+                            <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="1" data-name="Flame Grilled Chicken" data-price="599">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="food-card card h-100">
+                    <img src="https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" class="card-img-top" alt="Chicken Wings">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Spicy Chicken Wings</h5>
+                        <p class="card-text text-muted">Crispy chicken wings tossed in our signature hot sauce</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 text-dark fw-bold">₹349</h6>
+                            <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="2" data-name="Spicy Chicken Wings" data-price="349">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="food-card card h-100">
+                    <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1498&q=80" class="card-img-top" alt="Chicken Burger">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Chicken Supreme Burger</h5>
+                        <p class="card-text text-muted">Juicy grilled chicken patty with cheese and special sauce</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 text-dark fw-bold">₹199</h6>
+                            <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="3" data-name="Chicken Supreme Burger" data-price="199">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="food-card card h-100">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Chicken Platter">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Chicken Platter</h5>
+                        <p class="card-text text-muted">Half chicken with 2 sides of your choice and bread</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 text-dark fw-bold">₹449</h6>
+                            <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="4" data-name="Chicken Platter" data-price="449">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider container"></div>
+
+    <!-- Menu Items -->
+    <div class="container my-5">
+        <h2 class="section-title fw-bold">Full Menu</h2>
+        
+        <!-- Chicken Specialties -->
+        <div class="mb-5">
+            <h4 class="fw-bold mb-4 text-dark"><i class="fas fa-drumstick-bite me-2"></i> Chicken Specialties</h4>
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="img-fluid rounded" alt="Flame Grilled Chicken">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Flame Grilled Chicken</h5>
+                                    <p class="card-text text-muted small">Our signature whole chicken marinated for 24 hours in secret spices and flame-grilled to perfection.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹599</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="5" data-name="Flame Grilled Chicken" data-price="599">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" class="img-fluid rounded" alt="Spicy Chicken Wings">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Spicy Chicken Wings</h5>
+                                    <p class="card-text text-muted small">Crispy fried chicken wings tossed in our signature hot sauce blend with a hint of garlic.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹349</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="6" data-name="Spicy Chicken Wings" data-price="349">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="img-fluid rounded" alt="Chicken Platter">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Chicken Platter</h5>
+                                    <p class="card-text text-muted small">Half chicken with 2 sides of your choice (fries, coleslaw, mashed potatoes) and bread.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹449</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="7" data-name="Chicken Platter" data-price="449">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1498&q=80" class="img-fluid rounded" alt="Chicken Supreme Burger">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Chicken Supreme Burger</h5>
+                                    <p class="card-text text-muted small">Juicy grilled chicken patty with melted cheese, lettuce, tomato and our special sauce.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹199</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="8" data-name="Chicken Supreme Burger" data-price="199">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sides -->
+        <div class="mb-5">
+            <h4 class="fw-bold mb-4 text-dark"><i class="fas fa-utensils me-2"></i> Sides</h4>
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="img-fluid rounded" alt="French Fries">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">French Fries</h5>
+                                    <p class="card-text text-muted small">Crispy golden fries seasoned with our special spice blend.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹99</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="9" data-name="French Fries" data-price="99">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="img-fluid rounded" alt="Garlic Bread">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Garlic Bread</h5>
+                                    <p class="card-text text-muted small">Freshly baked bread with garlic butter and herbs.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹79</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="10" data-name="Garlic Bread" data-price="79">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Beverages -->
+        <div class="mb-5">
+            <h4 class="fw-bold mb-4 text-dark"><i class="fas fa-glass-whiskey me-2"></i> Beverages</h4>
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1525&q=80" class="img-fluid rounded" alt="Fresh Lime Soda">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Fresh Lime Soda</h5>
+                                    <p class="card-text text-muted small">Refreshing lime soda with mint and a hint of salt.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹49</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="11" data-name="Fresh Lime Soda" data-price="49">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" class="img-fluid rounded" alt="Iced Tea">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Iced Tea</h5>
+                                    <p class="card-text text-muted small">Chilled tea with lemon and mint, perfect with spicy food.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹59</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="12" data-name="Iced Tea" data-price="59">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <button class="floating-cart btn btn-primary rounded-pill p-3" data-bs-toggle="modal" data-bs-target="#cartModal">
+        <i class="fas fa-shopping-cart fa-lg"></i>
+        <span class="cart-badge badge bg-danger rounded-pill">0</span>
+    </button>
+
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="cartModalLabel">Your Order</h5>
+                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cart-items">
+                        <!-- Cart items will be dynamically inserted here -->
+                        <div class="text-center py-4" id="empty-cart-message">
+                            <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                                                        <h5 class="text-muted">Your cart is empty</h5>
+                            <p class="text-muted small">Add some delicious items to get started!</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <h6 class="mb-0">Subtotal:</h6>
+                        <h5 class="mb-0 fw-bold" id="cart-subtotal">₹0</h5>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <h6 class="mb-0">Delivery Fee:</h6>
+                        <h5 class="mb-0 fw-bold" id="delivery-fee">₹49</h5>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Total:</h5>
+                        <h4 class="mb-0 fw-bold text-primary" id="cart-total">₹49</h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+                    <button type="button" class="btn btn-primary" id="checkout-btn" data-bs-toggle="modal" data-bs-target="#checkoutModal" disabled>Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- Checkout Form Modal  -->
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="checkoutModalLabel">Delivery Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="deliveryForm">
+                    <div class="mb-3">
+                        <label for="customerName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="customerName" required>
+                        <div class="invalid-feedback">Please enter your name</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customerPhone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="customerPhone" required>
+                        <div class="invalid-feedback">Please enter a valid phone number</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customerEmail" class="form-label">Email (Optional)</label>
+                        <input type="email" class="form-control" id="customerEmail">
+                    </div>
+                    <div class="mb-3">
+                        <label for="deliveryAddress" class="form-label">Delivery Address</label>
+                        <textarea class="form-control" id="deliveryAddress" rows="3" required></textarea>
+                        <div class="invalid-feedback">Please enter your delivery address</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="deliveryCity" class="form-label">City</label>
+                            <input type="text" class="form-control" id="deliveryCity" required>
+                            <div class="invalid-feedback">Please enter your city</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="deliveryZip" class="form-label">Zip Code</label>
+                            <input type="text" class="form-control" id="deliveryZip" required>
+                            <div class="invalid-feedback">Please enter your zip code</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deliveryInstructions" class="form-label">Delivery Instructions (Optional)</label>
+                        <textarea class="form-control" id="deliveryInstructions" rows="2"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Payment Method</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="cashOnDelivery" value="cash" checked>
+                            <label class="form-check-label" for="cashOnDelivery">
+                                Cash on Delivery
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="onlinePayment" value="online">
+                            <label class="form-check-label" for="onlinePayment">
+                                Online Payment
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Back to Cart</button>
+                <button type="button" class="btn btn-primary" id="confirm-order-btn">Confirm Order</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+  <!-- Order Confirmation Modal  -->
+<div class="modal fade" id="orderConfirmationModal" tabindex="-1" aria-labelledby="orderConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title fw-bold" id="orderConfirmationModalLabel">Order Confirmed!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <i class="fas fa-check-circle text-success fa-5x mb-4"></i>
+                <h4 class="fw-bold mb-3">Thank you for your order!</h4>
+                <p>Your order has been placed successfully and will be delivered within 30-45 minutes.</p>
+                <div class="alert alert-info mt-3">
+                    <h6 class="fw-bold">Order ID: <span id="order-id">BK-${Math.floor(1000 + Math.random() * 9000)}</span></h6>
+                    <p class="mb-1">Estimated delivery time: <span id="delivery-time">30-45 minutes</span></p>
+                </div>
+                <div class="alert alert-light mt-3 text-start">
+                    <h6 class="fw-bold">Delivery Details:</h6>
+                    <p id="delivery-details" class="mb-0"></p>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Toast Notification -->
+    <div class="toast-container">
+        <div class="toast align-items-center text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true" id="added-to-cart-toast">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fas fa-check-circle me-2"></i> Item added to cart
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-about">
+                        <a href="#" class="footer-logo"><i class="fas fa-utensils me-2"></i>URBAN EATS</a>
+                        <p>Discover the best restaurants in your city and enjoy delicious meals delivered to your doorstep or dine-in at your favorite spots.</p>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Restaurants</a></li>
+                        <li><a href="#">Offers</a></li>
+                        <li><a href="#">My Orders</a></li>
+                        <li><a href="#">Account</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-title">Support</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-title">Contact Us</h5>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, Chennai, Tamil Nadu 600001</p>
+                        <p><i class="fas fa-phone-alt"></i> +91 9876543210</p>
+                        <p><i class="fas fa-envelope"></i> support@urbaneats.com</p>
+                        <p><i class="fas fa-clock"></i> 9:00 AM - 11:00 PM, Daily</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p class="mb-0">&copy; 2023 Urban Eats. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Cart functionality
+        let cart = [];
+        const cartBadge = document.querySelector('.cart-badge');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartTotal = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const addedToCartToast = new bootstrap.Toast(document.getElementById('added-to-cart-toast'));
+
+        // Add to cart functionality
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const price = parseInt(this.getAttribute('data-price'));
+                
+                // Check if item already exists in cart
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id,
+                        name,
+                        price,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                addedToCartToast.show();
+            });
+        });
+
+        // Update cart display
+        function updateCart() {
+            // Update cart badge
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartBadge.textContent = totalItems;
+            
+            // Update cart items list
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartItemsContainer.innerHTML = '';
+                checkoutBtn.disabled = true;
+            } else {
+                emptyCartMessage.style.display = 'none';
+                
+                let itemsHTML = '';
+                let subtotal = 0;
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+                    
+                    itemsHTML += `
+                        <div class="cart-item">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="mb-0 fw-bold">${item.name}</h6>
+                                <button class="btn btn-sm btn-outline-danger remove-item" data-id="${item.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <button class="quantity-btn btn-sm btn-outline-secondary decrease" data-id="${item.id}">-</button>
+                                    <span class="mx-2">${item.quantity}</span>
+                                    <button class="quantity-btn btn-sm btn-outline-secondary increase" data-id="${item.id}">+</button>
+                                </div>
+                                <span class="fw-bold">₹${itemTotal}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                cartItemsContainer.innerHTML = itemsHTML;
+                cartSubtotal.textContent = `₹${subtotal}`;
+                
+                const deliveryFee = 49;
+                const total = subtotal + deliveryFee;
+                cartTotal.textContent = `₹${total}`;
+                
+                checkoutBtn.disabled = false;
+                
+                // Add event listeners to quantity buttons
+                document.querySelectorAll('.increase').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        item.quantity += 1;
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.decrease').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                        } else {
+                            cart = cart.filter(item => item.id !== id);
+                        }
+                        
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        cart = cart.filter(item => item.id !== id);
+                        updateCart();
+                    });
+                });
+            }
+        }
+
+       // Confirm order button (Add this)
+document.getElementById('confirm-order-btn').addEventListener('click', function() {
+    // Validate form
+    const form = document.getElementById('deliveryForm');
+    const requiredFields = ['customerName', 'customerPhone', 'deliveryAddress', 'deliveryCity', 'deliveryZip'];
+    
+    let isValid = true;
+    requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (!field.value.trim()) {
+            field.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            field.classList.remove('is-invalid');
+        }
+    });
+    
+    if (!isValid) {
+        // Show error message
+        const errorAlert = document.createElement('div');
+        errorAlert.className = 'alert alert-danger mt-3';
+        errorAlert.textContent = 'Please fill in all required fields.';
+        const existingAlert = form.querySelector('.alert');
+        if (!existingAlert) {
+            form.insertBefore(errorAlert, form.firstChild);
+        }
+        return;
+    }
+    
+    // Collect delivery information
+    const deliveryInfo = {
+        name: document.getElementById('customerName').value,
+        phone: document.getElementById('customerPhone').value,
+        email: document.getElementById('customerEmail').value || '',
+        address: document.getElementById('deliveryAddress').value,
+        city: document.getElementById('deliveryCity').value,
+        zip: document.getElementById('deliveryZip').value,
+        instructions: document.getElementById('deliveryInstructions').value || '',
+        paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value
+    };
+    
+    const checkoutModal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'));
+    const orderConfirmationModal = new bootstrap.Modal(document.getElementById('orderConfirmationModal'));
+    
+    // Update order confirmation with delivery details
+    document.getElementById('delivery-details').innerHTML = `
+        ${deliveryInfo.name}<br>
+        ${deliveryInfo.phone}<br>
+        ${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.zip}<br>
+        ${deliveryInfo.instructions ? '<strong>Instructions:</strong> ' + deliveryInfo.instructions : ''}
+    `;
+    
+    checkoutModal.hide();
+    orderConfirmationModal.show();
+    
+    // Clear cart after checkout
+    cart = [];
+    updateCart();
+    
+    // Reset form
+    document.getElementById('deliveryForm').reset();
+});
+
+        // Initialize tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    </script>
+</body>
+</html>

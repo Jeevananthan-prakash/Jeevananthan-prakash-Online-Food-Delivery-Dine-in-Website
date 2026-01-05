@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urban Eats - Dine-in Restaurants</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff6b6b;
+      --secondary: #4ecdc4;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --accent: #ffd166;
+      --success: #06d6a0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fbf8f8;
+      color: #f8f9fa;
+      overflow-x: hidden;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.95);
+      padding: 15px 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      z-index: 1000; 
+    }
+    
+    .navbar.scrolled {
+      padding: 10px 30px;
+      background-color: rgba(0, 0, 0, 0.98);
+    }
+    
+    .navbar-brand {
+      color: var(--accent) !important;
+      font-weight: 700;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .navbar-brand i {
+      margin-right: 10px;
+    }
+    
+    /* Hero Carousel */
+    .carousel-fade {
+      height: 50%;
+      padding-top: 30px;
+    }
+    
+    .carousel-item {
+      height: 600px;
+    }
+    
+    .carousel-item img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+      margin-top: 100px;
+      border-radius: 70px;
+      padding: 10px;
+      opacity: 0.8;
+      transition: opacity 0.5s ease;
+    }
+    
+    .carousel-item:hover img {
+      opacity: 0.9;
+    }
+    
+    .carousel-caption {
+      bottom: 40px;
+      left: 5%;
+      text-align: left;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 500px;
+    }
+    
+    .carousel-caption h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Order Options */
+    .custom-line {
+      border: none;
+      border-top: 3px solid rgba(255, 255, 255, 0.2);
+      margin: 10px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .order-options {
+      margin: 30px 0;
+    }
+    
+    .order-option {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0;
+      position: relative;
+    }
+    
+    .order-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      padding: 5px 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .order-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 3px;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    .order-link:hover {
+      color: var(--accent);
+    }
+    
+    .order-link:hover::after {
+      width: 100%;
+    }
+    
+    /* Restaurant Cards */
+    .restaurant-card {
+      transition: all 0.4s ease;
+      border-radius: 15px;
+      overflow: hidden;
+      background-color: #fcfcfc;
+      border: none;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      margin-bottom: 30px;
+    }
+    
+    .restaurant-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(255, 255, 255, 0.1);
+    }
+    
+    .restaurant-card img {
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    
+    .restaurant-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    .card-body {
+      padding: 20px;
+    }
+    
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: rgb(12, 12, 12);
+    }
+    
+    .card-text {
+      color: #aaa;
+      margin-bottom: 15px;
+    }
+    
+    .btn-outline-primary {
+      border-color: var(--accent);
+      color: var(--accent);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline-primary:hover {
+      background-color: var(--accent);
+      color: #111;
+    }
+    
+    /* Section Title */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 50px;
+      position: relative;
+      display: inline-block;
+      color: var(--success);
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 4px;
+      bottom: -10px;
+      left: 25%;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #000;
+      padding: 60px 0 20px;
+      margin-top: 60px;
+    }
+    
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    
+    .footer-about p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 20px;
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: white;
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+      padding-left: 5px;
+    }
+    
+    .footer-contact p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .footer-contact i {
+      margin-right: 10px;
+      color: var(--accent);
+    }
+    
+    .copyright {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      margin-top: 40px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+    
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .delay-1 {
+      transition-delay: 0.2s;
+    }
+    
+    .delay-2 {
+      transition-delay: 0.4s;
+    }
+    
+    .delay-3 {
+      transition-delay: 0.6s;
+    }
+    
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .back-to-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background-color: var(--accent);
+      transform: translateY(-5px);
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .carousel-caption h2 {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .carousel-item {
+        height: 400px;
+      }
+      
+      .carousel-caption {
+        max-width: 300px;
+      }
+      
+      .carousel-caption h2 {
+        font-size: 1.5rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .carousel-item {
+        height: 300px;
+      }
+      
+      .carousel-caption {
+        padding: 10px;
+        bottom: 20px;
+      }
+      
+      .order-option {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-utensils"></i> URBAN EATS
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#restaurants">Restaurants</a>
+          </li>
+          
+        
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Carousel -->
+  <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active position-relative">
+        <img src="image/classic-luxury-style-restaurant-with-tables-chairs.jpg" class="d-block w-100" alt="Luxury Restaurant">
+        <div class="carousel-caption d-none d-md-block">
+          <h2>Welcome to Urban Eats</h2>
+          <p>Dining out restaurants</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <!-- Order Options -->
+  <div class="container my-5">
+    <hr class="custom-line fade-in" />
+    <div class="d-flex justify-content-center gap-5 order-options">
+      <h5 class="order-option fade-in delay-1">
+        <a href="home.html" class="order-link">Order Online</a>
+      </h5>
+      <h5 class="order-option fade-in delay-2">
+        <a href="#" class="order-link">Dine-in</a>
+      </h5>
+    </div>
+    <hr class="custom-line fade-in delay-3" />
+  </div>
+
+  <!-- Dine-in Restaurants -->
+  <div class="container py-5" id="restaurants">
+    <h2 class="section-title text-center mb-5 fade-in">Dine-in Restaurants</h2>
+    <div class="row g-4">
+      <!-- Restaurant 1 -->
+      <div class="col-md-4 fade-in">
+        <div class="card restaurant-card">
+          <img src="image/res.jpg" class="card-img-top" alt="Valarmathi Kongunatu">
+          <div class="card-body">
+            <h5 class="card-title">Valarmathi Kongunatu</h5>
+            <p class="card-text">Authentic Kongu cuisine in a cozy dine-in space.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="rating text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="text-white ms-2">4.5</span>
+              </div>
+              <a href="dineout.html" class="btn btn-outline-primary btn-sm">Book Table</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Restaurant 2 -->
+      <div class="col-md-4 fade-in delay-1">
+        <div class="card restaurant-card">
+          <img src="image/traditional-georgian-dish-tender-veal-stewed-with-onions-peppers-chashushuli-culinary.jpg" class="card-img-top" alt="Cock Ro Ko">
+          <div class="card-body">
+            <h5 class="card-title">Cock Ro Ko</h5>
+            <p class="card-text">Perfect for families and groups. Try our sizzling BBQ.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="rating text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span class="text-white ms-2">4.0</span>
+              </div>
+              <a href="cockRoKodinein.html" class="btn btn-outline-primary btn-sm">Book Table</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Restaurant 3 -->
+      <div class="col-md-4 fade-in delay-2">
+        <div class="card restaurant-card">
+          <img src="image/ff909ec35b89ca8c51c210e3caebace5.jpg" class="card-img-top" alt="Dindigul Thalappakatti">
+          <div class="card-body">
+            <h5 class="card-title">Dindigul Thalappakatti</h5>
+            <p class="card-text">Dine-in and enjoy our legendary biryanis with friends!</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="rating text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span class="text-white ms-2">5.0</span>
+              </div>
+              <a href="dineindindigul.html" class="btn btn-outline-primary btn-sm">Book Table</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Restaurant 4 -->
+      <div class="col-md-4 fade-in">
+        <div class="card restaurant-card">
+          <img src="image/pepperoni-pizza-slice.jpg" class="card-img-top" alt="Happy Ending">
+          <div class="card-body">
+            <h5 class="card-title">Happy Ending</h5>
+            <p class="card-text">Tasty snacks with a fun ambiance.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="rating text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+                <span class="text-white ms-2">3.5</span>
+              </div>
+              <a href="#" class="btn btn-outline-primary btn-sm">Book Table</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Restaurant 5 -->
+      <div class="col-md-4 fade-in delay-1">
+        <div class="card restaurant-card">
+          <img src="image/top-view-table-full-delicious-food-composition.jpg" class="card-img-top" alt="Moon Light">
+          <div class="card-body">
+            <h5 class="card-title">Moon Light</h5>
+            <p class="card-text">Perfect for night dine and biryani lovers.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="rating text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span class="text-white ms-2">4.0</span>
+              </div>
+              <a href="#" class="btn btn-outline-primary btn-sm">Book Table</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Restaurant 6 -->
+      <div class="col-md-4 fade-in delay-2">
+        <div class="card restaurant-card">
+          <img src="image/food.jpg" class="card-img-top" alt="Dark Night">
+          <div class="card-body">
+            <h5 class="card-title">Dark Night</h5>
+            <p class="card-text">Tandoori and grilled magic under the stars!</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="rating text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="text-white ms-2">4.5</span>
+              </div>
+              <a href="#" class="btn btn-outline-primary btn-sm">Book Table</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="footer-about">
+            <a href="#" class="footer-logo">
+              <i class="fas fa-utensils me-2"></i>URBAN EATS
+            </a>
+            <p>Delivering happiness one meal at a time. Urban Eats connects you with the best local restaurants for a seamless food experience.</p>
+            <div class="social-icons">
+              <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-4">
+          <h5 class="footer-title">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="new.html">Home</a></li>
+            <li><a href="#restaurants">Restaurants</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-2 col-md-4">
+          <h5 class="footer-title">Support</h5>
+          <ul class="footer-links">
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Delivery Info</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-4 col-md-4">
+          <h5 class="footer-title">Contact Us</h5>
+          <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i>Namakkal, Tamil Nadu,India</p>
+            <p><i class="fas fa-phone-alt"></i> +91 98765 43210</p>
+            <p><i class="fas fa-envelope"></i> support@urbaneats.com</p>
+            <p><i class="fas fa-clock"></i> Mon-Sun: 8:00 AM - 10:00 PM</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 Urban Eats. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Back to top button
+    const backToTopButton = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.add('active');
+      } else {
+        backToTopButton.classList.remove('active');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Intersection Observer for animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    fadeElements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

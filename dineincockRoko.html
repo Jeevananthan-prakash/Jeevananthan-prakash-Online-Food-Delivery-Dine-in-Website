@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cock Ro Ko - Dine-in Restaurant</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff6b6b;
+      --secondary: #4ecdc4;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --accent: #ffd166;
+      --success: #06d6a0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fbf8f8;
+      color: #333;
+      overflow-x: hidden;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.95);
+      padding: 15px 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      z-index: 1000; 
+    }
+    
+    .navbar.scrolled {
+      padding: 10px 30px;
+      background-color: rgba(0, 0, 0, 0.98);
+    }
+    
+    .navbar-brand {
+      color: var(--accent) !important;
+      font-weight: 700;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .navbar-brand i {
+      margin-right: 10px;
+    }
+    
+    /* Hero Section */
+    .restaurant-hero {
+      height: 500px;
+      background: url('image/traditional-georgian-dish-tender-veal-stewed-with-onions-peppers-chashushuli-culinary.jpg') center/cover no-repeat;
+      position: relative;
+      margin-top: 76px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      padding: 0 50px;
+      max-width: 800px;
+    }
+    
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    
+    /* Restaurant Info */
+    .restaurant-info {
+      padding: 80px 0;
+      background-color: white;
+    }
+    
+    .info-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: var(--dark);
+      position: relative;
+    }
+    
+    .info-title::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 4px;
+      bottom: -10px;
+      left: 0;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+    
+    .info-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+    
+    .highlight-box {
+      background-color: var(--light);
+      border-left: 4px solid var(--accent);
+      padding: 20px;
+      margin: 30px 0;
+    }
+    
+    /* Menu Section */
+    .menu-section {
+      padding: 80px 0;
+      background-color: #f9f9f9;
+    }
+    
+    .menu-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 50px;
+      text-align: center;
+      color: var(--dark);
+    }
+    
+    .menu-category {
+      margin-bottom: 50px;
+    }
+    
+    .category-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: var(--dark);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 10px;
+    }
+    
+    .menu-item {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .menu-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .item-name {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--dark);
+      margin-bottom: 5px;
+    }
+    
+    .item-description {
+      color: #666;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+    
+    .item-price {
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    /* Gallery Section */
+    .gallery-section {
+      padding: 80px 0;
+    }
+    
+    .gallery-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 50px;
+      text-align: center;
+      color: var(--dark);
+    }
+    
+    .gallery-img {
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .gallery-img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Reservation Section */
+    .reservation-section {
+      padding: 80px 0;
+      background-color: var(--dark);
+      color: white;
+    }
+    
+    .reservation-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: white;
+    }
+    
+    .reservation-form {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 10px;
+    }
+    
+    .form-control {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .form-control:focus {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border-color: var(--accent);
+      box-shadow: none;
+    }
+    
+    .btn-reserve {
+      background-color: var(--accent);
+      color: var(--dark);
+      font-weight: 600;
+      padding: 12px 30px;
+      border: none;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-reserve:hover {
+      background-color: #ffc233;
+      transform: translateY(-3px);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #000;
+      padding: 60px 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    
+    .footer-about p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 20px;
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: white;
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+      padding-left: 5px;
+    }
+    
+    .footer-contact p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .footer-contact i {
+      margin-right: 10px;
+      color: var(--accent);
+    }
+    
+    .copyright {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      margin-top: 40px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .back-to-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background-color: var(--accent);
+      transform: translateY(-5px);
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 2.8rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.3rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .restaurant-hero {
+        height: 400px;
+        margin-top: 66px;
+      }
+      
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .info-title, .menu-title, .gallery-title, .reservation-title {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .restaurant-hero {
+        height: 300px;
+      }
+      
+      .hero-content {
+        padding: 0 20px;
+      }
+      
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      
+      .info-title, .menu-title, .gallery-title, .reservation-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-utensils"></i> URBAN EATS
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#menu">Menu</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#reservation">Reservation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="restaurant-hero">
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">Cock Ro Ko</h1>
+        <p class="hero-subtitle">Perfect for families and groups. Try our sizzling BBQ and signature dishes in a vibrant atmosphere.</p>
+        <a href="#reservation" class="btn btn-reserve">Book a Table</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Restaurant Info -->
+  <section class="restaurant-info" id="about">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2 class="info-title">About Cock Ro Ko</h2>
+          <p class="info-text">Cock Ro Ko is a premier dining destination specializing in grilled meats, BBQ, and contemporary cuisine. Our restaurant offers a warm, inviting atmosphere perfect for family gatherings, romantic dinners, and group celebrations.</p>
+          <p class="info-text">Founded in 2010, we take pride in using only the freshest ingredients sourced from local farmers and suppliers. Our chefs bring years of expertise to create memorable dining experiences.</p>
+          
+          <div class="highlight-box">
+            <h5><i class="fas fa-award text-warning me-2"></i> Award-Winning Cuisine</h5>
+            <p>Recognized as "Best BBQ Restaurant" for three consecutive years by Food & Dining Magazine.</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img src="image/restaurant-interior.jpg" alt="Restaurant Interior" class="img-fluid rounded shadow">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <h2 class="menu-title">Our Menu</h2>
+      
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="menu-category">
+            <h3 class="category-title">Starters</h3>
+            
+            <div class="menu-item">
+              <div class="d-flex justify-content-between">
+                <h4 class="item-name">BBQ Chicken Wings</h4>
+                <span class="item-price">₹350</span>
+              </div>
+              <p class="item-description">Succulent chicken wings glazed with our signature BBQ sauce, served with celery sticks and blue cheese dip.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="d-flex justify-content-between">
+                <h4 class="item-name">Crispy Calamari</h4>
+                <span class="item-price">₹420</span>
+              </div>
+              <p class="item-description">Lightly battered squid served with lemon aioli and spicy marinara sauce.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="d-flex justify-content-between">
+                <h4 class="item-name">Stuffed Mushrooms</h4>
+                <span class="item-price">₹380</span>
+              </div>
+              <p class="item-description">Button mushrooms stuffed with herbed cream cheese and breadcrumbs, baked to perfection.</p>
+            </div>
+          </div>
+          
+          <div class="menu-category">
+            <h3 class="category-title">Main Courses</h3>
+            
+            <div class="menu-item">
+              <div class="d-flex justify-content-between">
+                <h4 class="item-name">Signature BBQ Platter</h4>
+                <span class="item-price">₹950</span>
+              </div>
+              <p class="item-description">A selection of our finest BBQ meats including ribs, pulled pork, brisket, and smoked sausage, served with cornbread and three sides.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="d-flex justify-content-between">
+                <h4 class="item-name">Grilled Salmon</h4>
+                <span class="item-price">₹850</span>
+              </div>
+              <p class="item-description">Fresh Atlantic salmon with lemon butter sauce, served with roasted vegetables and mashed potatoes.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="menu-category">
+            <h3 class="category-title">From the Grill</h3>
+            
+            <div class="menu-item">
+              <div class="d-flex justify-content-between">
+                <h4 class="item-name">Ribeye Steak</h4>
+                <span class="item-price">₹1200</span>
+              </div>
+              <p class="item-description">16oz USDA prime ribeye cooked to your preference, served with garlic butter and your choice of two sides.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="d-flex justify-content-between">
+                <h4 class="item-name">Lamb Chops</h4>
+                <span class="item-price">₹1100</span>
+              </div>
+              <p class="item-description">Three frenched lamb chops with mint jus, served with roasted potatoes and seasonal vegetables.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="d-flex justify-content-between">
+                <h4 class="item-name">Porterhouse Steak</h4>
+                <span class="item-price">₹1500</span>
+              </div>
+              <p class="item-description">24oz cut combining strip and tenderloin, perfect for sharing, served with three sides.</p>
+            </div>
+          </div>
+          
+          <div class="menu-category">
+            <h3 class="category-title">Desserts</h3>
+            
+            <div class="menu-item">
+              <div class="d-flex justify-content-between">
+                <h4 class="item-name">Chocolate Lava Cake</h4>
+                <span class="item-price">₹350</span>
+              </div>
+              <p class="item-description">Warm chocolate cake with a molten center, served with vanilla ice cream.</p>
+            </div>
+            
+            <div class="menu-item">
+              <div class="d-flex justify-content-between">
+                <h4 class="item-name">New York Cheesecake</h4>
+                <span class="item-price">₹320</span>
+              </div>
+              <p class="item-description">Classic cheesecake with berry compote and whipped cream.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section" id="gallery">
+    <div class="container">
+      <h2 class="gallery-title">Gallery</h2>
+      
+      <div class="row">
+        <div class="col-md-4">
+          <img src="image/grilled-meat-platter.jpg" alt="Grilled Meat Platter" class="img-fluid gallery-img">
+        </div>
+        <div class="col-md-4">
+          <img src="image/restaurant-bar-area.jpg" alt="Bar Area" class="img-fluid gallery-img">
+        </div>
+        <div class="col-md-4">
+          <img src="image/chef-preparing-food.jpg" alt="Chef Preparing Food" class="img-fluid gallery-img">
+        </div>
+        <div class="col-md-6">
+          <img src="image/restaurant-outdoor-seating.jpg" alt="Outdoor Seating" class="img-fluid gallery-img">
+        </div>
+        <div class="col-md-6">
+          <img src="image/dessert-platter.jpg" alt="Dessert Platter" class="img-fluid gallery-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation Section -->
+  <section class="reservation-section" id="reservation">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2 class="reservation-title">Make a Reservation</h2>
+          <p>Book your table in advance to ensure the best dining experience at Cock Ro Ko. For parties of 8 or more, please call us directly.</p>
+          
+          <div class="mt-5">
+            <h5><i class="fas fa-clock me-2"></i> Opening Hours</h5>
+            <p>Monday - Thursday: 11:00 AM - 10:00 PM</p>
+            <p>Friday - Saturday: 11:00 AM - 11:00 PM</p>
+            <p>Sunday: 10:00 AM - 9:00 PM</p>
+            
+            <h5 class="mt-4"><i class="fas fa-phone me-2"></i> Contact</h5>
+            <p>+91 98765 43210</p>
+            <p>reservations@cockroko.com</p>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <form class="reservation-form">
+            <div class="row">
+              <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Your Name" required>
+              </div>
+              <div class="col-md-6">
+                <input type="email" class="form-control" placeholder="Your Email" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <input type="tel" class="form-control" placeholder="Phone Number" required>
+              </div>
+              <div class="col-md-6">
+                <select class="form-control" required>
+                  <option value="">Number of Guests</option>
+                  <option value="1">1 Person</option>
+                  <option value="2">2 People</option>
+                  <option value="3">3 People</option>
+                  <option value="4">4 People</option>
+                  <option value="5">5 People</option>
+                  <option value="6">6 People</option>
+                  <option value="7">7 People</option>
+                  <option value="8">8+ People (Please Call)</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <input type="date" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <input type="time" class="form-control" required>
+              </div>
+            </div>
+            <textarea class="form-control" rows="3" placeholder="Special Requests"></textarea>
+            <button type="submit" class="btn btn-reserve w-100">Book Table</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="footer-about">
+            <a href="#" class="footer-logo">
+              <i class="fas fa-utensils me-2"></i>Cock Ro Ko
+            </a>
+            <p>Experience the finest grilled meats and contemporary cuisine in a vibrant atmosphere perfect for any occasion.</p>
+            <div class="social-icons">
+              <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4">
+          <h5 class="footer-title">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#menu">Our Menu</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#reservation">Reservations</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-4">
+          <h5 class="footer-title">Contact Us</h5>
+          <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, Namakkal, Tamil Nadu, India</p>
+            <p><i class="fas fa-phone-alt"></i> +91 98765 43210</p>
+            <p><i class="fas fa-envelope"></i> info@cockroko.com</p>
+            <p><i class="fas fa-clock"></i> Mon-Thu: 11AM-10PM, Fri-Sat: 11AM-11PM, Sun: 10AM-9PM</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 Cock Ro Ko. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Back to top button
+    const backToTopButton = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.add('active');
+      } else {
+        backToTopButton.classList.remove('active');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

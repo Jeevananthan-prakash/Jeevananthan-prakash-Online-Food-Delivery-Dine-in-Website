@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Eats - Valarmathi Kongunadu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #f1faee;
+            --accent: #a8dadc;
+            --dark: #1d3557;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            background-color: var(--light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+        }
+        
+        #navbar {
+            background-color: rgba(26, 26, 46, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        #navbar.scrolled {
+            padding: 10px 0;
+            background-color: rgba(26, 26, 46, 0.98);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--accent) !important;
+            font-size: 1.8rem;
+            align-items: center;
+        }
+        
+        .navbar-brand i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        #navbarNav a {
+            color: var(--light) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        #navbarNav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        #navbarNav a:hover::after,
+        #navbarNav a.active::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .restaurant-header {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/random/1200x600/?south-indian-food');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            margin-top: 20px;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+        }
+        
+        .offer-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .offer-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .food-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .food-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .food-item {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        .food-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .food-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+        
+        .cart-item {
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        footer {
+            background-color: #000;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .footer-contact p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .divider {
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            margin: 2rem 0;
+            border-radius: 3px;
+        }
+        
+        .floating-cart {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Form validation styles */
+        .is-invalid {
+            border-color: #dc3545;
+        }
+        
+        .is-invalid:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+        
+        .invalid-feedback {
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+            color: #dc3545;
+        }
+        
+        /* Toast notification */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1100;
+        }
+    </style>
+</head>
+<body>
+
+   <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-utensils"></i>URBAN EATS
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+                <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Restaurants</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Offers</a>
+                    </li>
+                    <li class="nav-item">
+                 <a class="nav-link" href="#">Contact</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+   
+    <!-- Restaurant Header -->
+    <div class="container mt-4">
+        <div class="restaurant-header text-center p-4 rounded">
+            <h1 class="display-4 fw-bold">Valarmathi Kongunadu</h1>
+            <p class="lead">Authentic Kongunadu cuisine since 1995</p>
+            <div class="rating mb-3">
+                <span class="text-warning"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                <span class="text-white ms-2">4.8 (850+ ratings)</span>
+            </div>
+            <p class="mb-0"><i class="fas fa-clock me-2"></i> Opens 7:00 AM - 10:30 PM</p>
+        </div>
+    </div>
+
+    <!-- Restaurant Info -->
+    <div class="container my-5">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <img src="https://source.unsplash.com/random/600x400/?tamil-nadu-restaurant" class="img-fluid rounded shadow" alt="Valarmathi Kongunadu" style="max-height: 250px;">
+            </div>
+            <div class="col-md-8">
+                <h2 class="fw-bold text-dark mb-3">About Valarmathi Kongunadu</h2>
+                <p class="lead">Experience the rich flavors of traditional Kongunadu cuisine, prepared with authentic recipes passed down through generations. Our dishes are made with locally sourced ingredients and traditional cooking methods.</p>
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <span class="badge bg-light text-dark p-2"><i class="fas fa-biking me-2"></i> Free Delivery</span>
+                    <span class="badge bg-light text-dark p-2"><i class="fas fa-clock me-2"></i> 45 Min Delivery</span>
+                    <span class="badge bg-light text-dark p-2"><i class="fas fa-utensils me-2"></i> Dine-in Available</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider container"></div>
+
+    <!-- Offers Section -->
+    <div class="container my-5">
+        <h2 class="section-title fw-bold">Special Offers</h2>
+        <div class="row g-4">
+            <!-- Offer 1 -->
+            <div class="col-md-4">
+                <div class="offer-card card h-100">
+                    <div class="card-body text-center">
+                        <div class="bg-danger bg-opacity-10 p-3 rounded mb-3">
+                            <i class="fas fa-utensils text-danger fa-3x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Thali Special</h5>
+                        <p class="card-text text-muted">Get 15% off on all traditional Kongunadu thalis.</p>
+                        <span class="badge bg-danger">Today Only</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Offer 2 -->
+            <div class="col-md-4">
+                <div class="offer-card card h-100">
+                    <div class="card-body text-center">
+                        <div class="bg-success bg-opacity-10 p-3 rounded mb-3">
+                            <i class="fas fa-tag text-success fa-3x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">₹150 OFF</h5>
+                        <p class="card-text text-muted">On orders above ₹799. Use code: <strong>KONGU150</strong></p>
+                        <span class="badge bg-success">New Users</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Offer 3 -->
+            <div class="col-md-4">
+                <div class="offer-card card h-100">
+                    <div class="card-body text-center">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded mb-3">
+                            <i class="fas fa-gift text-primary fa-3x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Free Sweet</h5>
+                        <p class="card-text text-muted">Get free Paal Kozhukattai on orders above ₹599.</p>
+                        <span class="badge bg-primary">Limited Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider container"></div>
+
+    <!-- Popular Items -->
+    <div class="container my-5">
+        <h2 class="section-title fw-bold">Most Popular Dishes</h2>
+        <div class="row g-4">
+            <!-- Item 1 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="food-card card h-100">
+                    <img src="https://source.unsplash.com/random/600x400/?kongunadu-chicken" class="card-img-top" alt="Kongunadu Chicken Curry">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Kongunadu Chicken Curry</h5>
+                        <p class="card-text text-muted">Traditional spicy chicken curry with special masala</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 text-dark fw-bold">₹320</h6>
+                            <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="1" data-name="Kongunadu Chicken Curry" data-price="320">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="food-card card h-100">
+                    <img src="https://source.unsplash.com/random/600x400/?mutton-chukka" class="card-img-top" alt="Mutton Chukka">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Mutton Chukka</h5>
+                        <p class="card-text text-muted">Dry mutton fry with traditional Kongunadu spices</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 text-dark fw-bold">₹380</h6>
+                            <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="2" data-name="Mutton Chukka" data-price="380">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="food-card card h-100">
+                    <img src="https://source.unsplash.com/random/600x400/?vegetable-biryani" class="card-img-top" alt="Vegetable Biryani">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Kongunadu Vegetable Biryani</h5>
+                        <p class="card-text text-muted">Flavorful biryani with local vegetables and spices</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 text-dark fw-bold">₹220</h6>
+                            <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="3" data-name="Kongunadu Vegetable Biryani" data-price="220">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="food-card card h-100">
+                    <img src="https://source.unsplash.com/random/600x400/?parotta" class="card-img-top" alt="Kothu Parotta">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Kothu Parotta</h5>
+                        <p class="card-text text-muted">Shredded parotta with egg and special masala</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 text-dark fw-bold">₹180</h6>
+                            <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="4" data-name="Kothu Parotta" data-price="180">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider container"></div>
+
+    <!-- Menu Items -->
+    <div class="container my-5">
+        <h2 class="section-title fw-bold">Full Menu</h2>
+        
+        <!-- Main Courses -->
+        <div class="mb-5">
+            <h4 class="fw-bold mb-4 text-dark"><i class="fas fa-utensils me-2"></i> Main Courses</h4>
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://source.unsplash.com/random/300x300/?chettinad-chicken" class="img-fluid rounded" alt="Chettinad Chicken">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Chettinad Chicken</h5>
+                                    <p class="card-text text-muted small">Spicy chicken curry with Chettinad masala and coconut.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹340</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="5" data-name="Chettinad Chicken" data-price="340">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://source.unsplash.com/random/300x300/?fish-curry" class="img-fluid rounded" alt="Meen Kuzhambu">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Meen Kuzhambu</h5>
+                                    <p class="card-text text-muted small">Traditional Tamil fish curry with tamarind and spices.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹360</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="6" data-name="Meen Kuzhambu" data-price="360">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://source.unsplash.com/random/300x300/?vegetable-curry" class="img-fluid rounded" alt="Kongunadu Vegetable Curry">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Kongunadu Vegetable Curry</h5>
+                                    <p class="card-text text-muted small">Mixed vegetables in traditional Kongunadu style gravy.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹190</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="7" data-name="Kongunadu Vegetable Curry" data-price="190">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://source.unsplash.com/random/300x300/?mutton-curry" class="img-fluid rounded" alt="Mutton Kongunadu">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Mutton Kongunadu</h5>
+                                    <p class="card-text text-muted small">Mutton cooked in traditional Kongunadu style with special spices.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹420</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="8" data-name="Mutton Kongunadu" data-price="420">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rice & Breads -->
+        <div class="mb-5">
+            <h4 class="fw-bold mb-4 text-dark"><i class="fas fa-bread-slice me-2"></i> Rice & Breads</h4>
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://source.unsplash.com/random/300x300/?chicken-biryani" class="img-fluid rounded" alt="Chicken Biryani">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Kongunadu Chicken Biryani</h5>
+                                    <p class="card-text text-muted small">Fragrant biryani with tender chicken pieces.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹280</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="9" data-name="Kongunadu Chicken Biryani" data-price="280">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://source.unsplash.com/random/300x300/?parotta" class="img-fluid rounded" alt="Kerala Parotta">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Kerala Parotta</h5>
+                                    <p class="card-text text-muted small">Flaky layered parotta served with curry.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹50</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="10" data-name="Kerala Parotta" data-price="50">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Desserts -->
+        <div class="mb-5">
+            <h4 class="fw-bold mb-4 text-dark"><i class="fas fa-ice-cream me-2"></i> Desserts</h4>
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://source.unsplash.com/random/300x300/?paal-kozhukattai" class="img-fluid rounded" alt="Paal Kozhukattai">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Paal Kozhukattai</h5>
+                                    <p class="card-text text-muted small">Traditional rice dumplings in sweet coconut milk.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹120</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="11" data-name="Paal Kozhukattai" data-price="120">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="col-md-6">
+                    <div class="food-item card p-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3">
+                                <img src="https://source.unsplash.com/random/300x300/?payasam" class="img-fluid rounded" alt="Parippu Payasam">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-1">Parippu Payasam</h5>
+                                    <p class="card-text text-muted small">Sweet lentil pudding with jaggery and ghee.</p>
+                                    <h6 class="mb-0 text-dark fw-bold">₹110</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="12" data-name="Parippu Payasam" data-price="110">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <button class="floating-cart btn btn-primary rounded-pill p-3" data-bs-toggle="modal" data-bs-target="#cartModal">
+        <i class="fas fa-shopping-cart fa-lg"></i>
+        <span class="cart-badge badge bg-danger rounded-pill">0</span>
+    </button>
+
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="cartModalLabel">Your Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cart-items">
+                        <p class="text-center text-muted">Your cart is empty</p>
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <h6 class="fw-bold">Subtotal:</h6>
+                        <h6 class="fw-bold" id="cart-subtotal">₹0</h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="fw-bold">Delivery Fee:</h6>
+                        <h6 class="fw-bold" id="delivery-fee">₹40</h6>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h5 class="fw-bold">Total:</h5>
+                        <h5 class="fw-bold text-primary" id="cart-total">₹40</h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+                    <button type="button" class="btn btn-primary" id="checkout-btn">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Form Modal -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="checkoutModalLabel">Delivery Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="deliveryForm">
+                        <div class="mb-3">
+                            <label for="customerName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="customerName" required>
+                            <div class="invalid-feedback">Please enter your name</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="customerPhone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="customerPhone" required>
+                            <div class="invalid-feedback">Please enter a valid phone number</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="customerEmail" class="form-label">Email (Optional)</label>
+                            <input type="email" class="form-control" id="customerEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="deliveryAddress" class="form-label">Delivery Address</label>
+                            <textarea class="form-control" id="deliveryAddress" rows="3" required></textarea>
+                            <div class="invalid-feedback">Please enter your delivery address</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="deliveryCity" class="form-label">City</label>
+                                <input type="text" class="form-control" id="deliveryCity" required>
+                                <div class="invalid-feedback">Please enter your city</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="deliveryZip" class="form-label">Zip Code</label>
+                                <input type="text" class="form-control" id="deliveryZip" required>
+                                <div class="invalid-feedback">Please enter your zip code</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="deliveryInstructions" class="form-label">Delivery Instructions (Optional)</label>
+                            <textarea class="form-control" id="deliveryInstructions" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Payment Method</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="cashOnDelivery" value="cash" checked>
+                                <label class="form-check-label" for="cashOnDelivery">
+                                    Cash on Delivery
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="onlinePayment" value="online">
+                                <label class="form-check-label" for="onlinePayment">
+                                    Online Payment
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Back to Cart</button>
+                    <button type="button" class="btn btn-primary" id="confirm-order-btn">Confirm Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div class="modal fade" id="orderConfirmationModal" tabindex="-1" aria-labelledby="orderConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title fw-bold" id="orderConfirmationModalLabel">Order Confirmed!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-check-circle text-success fa-5x mb-4"></i>
+                    <h4 class="fw-bold mb-3">Thank you for your order!</h4>
+                    <p>Your order has been placed successfully and will be delivered within 45-60 minutes.</p>
+                    <div class="alert alert-info mt-3">
+                        <h6 class="fw-bold">Order ID: <span id="order-id">VK-${Math.floor(1000 + Math.random() * 9000)}</span></h6>
+                        <p class="mb-1">Estimated delivery time: <span id="delivery-time">45-60 minutes</span></p>
+                    </div>
+                    <div class="alert alert-light mt-3 text-start">
+                        <h6 class="fw-bold">Delivery Details:</h6>
+                        <p id="delivery-details" class="mb-0"></p>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container"></div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="footer-about">
+                        <a href="#" class="footer-logo">
+                            <i class="fas fa-utensils me-2"></i>URBAN EATS
+                        </a>
+                        <p>Delivering happiness one meal at a time. Urban Eats connects you with the best local restaurants for a seamless food experience.</p>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="new.html">Home</a></li>
+                        <li><a href="#restaurants">Restaurants</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="footer-title">Support</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Delivery Info</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="footer-title">Contact Us</h5>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i>Namakkal, Tamil Nadu, India</p>
+                        <p><i class="fas fa-phone-alt"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-envelope"></i> support@urbaneats.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Sun: 8:00 AM - 10:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Urban Eats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Cart functionality
+        let cart = [];
+        
+        // Add to cart function
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const price = parseInt(this.getAttribute('data-price'));
+                
+                // Check if item already in cart
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id,
+                        name,
+                        price,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                
+                // Show toast notification
+                showToast(`${name} has been added to your cart.`, 'success');
+            });
+        });
+        
+        // Update cart function
+        function updateCart() {
+            const cartItemsElement = document.getElementById('cart-items');
+            const cartBadge = document.querySelector('.cart-badge');
+            const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartTotal = document.getElementById('cart-total');
+            
+            // Update cart badge
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartBadge.textContent = totalItems;
+            
+            if (totalItems === 0) {
+                cartItemsElement.innerHTML = '<p class="text-center text-muted">Your cart is empty</p>';
+                cartSubtotal.textContent = '₹0';
+                cartTotal.textContent = '₹40';
+                document.getElementById('checkout-btn').disabled = true;
+                return;
+            }
+            
+            // Update cart items
+            cartItemsElement.innerHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                subtotal += item.price * item.quantity;
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1 fw-bold">${item.name}</h6>
+                            <p class="mb-1 small text-muted">₹${item.price} x ${item.quantity}</p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="quantity-btn btn-sm btn-outline-secondary" data-id="${item.id}" data-action="decrease">-</span>
+                            <span class="mx-2">${item.quantity}</span>
+                            <span class="quantity-btn btn-sm btn-outline-secondary" data-id="${item.id}" data-action="increase">+</span>
+                            <button class="btn btn-sm btn-outline-danger ms-3 remove-item" data-id="${item.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                cartItemsElement.appendChild(itemElement);
+            });
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.quantity-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const action = this.getAttribute('data-action');
+                    const item = cart.find(item => item.id === id);
+                    
+                    if (action === 'increase') {
+                        item.quantity += 1;
+                    } else if (action === 'decrease' && item.quantity > 1) {
+                        item.quantity -= 1;
+                    }
+                    
+                    updateCart();
+                });
+            });
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    cart = cart.filter(item => item.id !== id);
+                    updateCart();
+                    showToast('Item removed from cart', 'info');
+                });
+            });
+            
+            // Update totals
+            const deliveryFee = 40;
+            const total = subtotal + deliveryFee;
+            
+            cartSubtotal.textContent = `₹${subtotal}`;
+            cartTotal.textContent = `₹${total}`;
+            
+            document.getElementById('checkout-btn').disabled = false;
+        }
+        
+        // Checkout button
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            // Show checkout form modal
+            const checkoutModal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+            const cartModal = bootstrap.Modal.getInstance(document.getElementById('cartModal'));
+            
+            cartModal.hide();
+            checkoutModal.show();
+        });
+        
+        // Confirm order button
+        document.getElementById('confirm-order-btn').addEventListener('click', function() {
+            // Validate form
+            const form = document.getElementById('deliveryForm');
+            const requiredFields = ['customerName', 'customerPhone', 'deliveryAddress', 'deliveryCity', 'deliveryZip'];
+            
+            let isValid = true;
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+            
+            if (!isValid) {
+                // Show error message
+                const errorAlert = document.createElement('div');
+                errorAlert.className = 'alert alert-danger mt-3';
+                errorAlert.textContent = 'Please fill in all required fields.';
+                const existingAlert = form.querySelector('.alert');
+                if (!existingAlert) {
+                    form.insertBefore(errorAlert, form.firstChild);
+                }
+                return;
+            }
+            
+            // Collect delivery information
+            const deliveryInfo = {
+                name: document.getElementById('customerName').value,
+                phone: document.getElementById('customerPhone').value,
+                email: document.getElementById('customerEmail').value || '',
+                address: document.getElementById('deliveryAddress').value,
+                city: document.getElementById('deliveryCity').value,
+                zip: document.getElementById('deliveryZip').value,
+                instructions: document.getElementById('deliveryInstructions').value || '',
+                paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value
+            };
+            
+           
+            const checkoutModal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'));
+            const orderConfirmationModal = new bootstrap.Modal(document.getElementById('orderConfirmationModal'));
+            
+            // Update order confirmation with delivery details
+            document.getElementById('delivery-details').innerHTML = `
+                ${deliveryInfo.name}<br>
+                ${deliveryInfo.phone}<br>
+                ${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.zip}<br>
+                ${deliveryInfo.instructions ? '<strong>Instructions:</strong> ' + deliveryInfo.instructions : ''}
+            `;
+            
+            checkoutModal.hide();
+            orderConfirmationModal.show();
+            
+            // Clear cart after checkout
+            cart = [];
+            updateCart();
+            
+            // Reset form
+            document.getElementById('deliveryForm').reset();
+        });
+        
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toastContainer = document.querySelector('.toast-container');
+            const toastId = 'toast-' + Date.now();
+            
+            const toast = document.createElement('div');
+            toast.id = toastId;
+            toast.className = 'toast show';
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            
+            const toastHeaderClass = type === 'success' ? 'bg-success text-white' : 
+                                   type === 'error' ? 'bg-danger text-white' : 
+                                   type === 'info' ? 'bg-info text-white' : 'bg-primary text-white';
+            
+            toast.innerHTML = `
+                <div class="toast-header ${toastHeaderClass}">
+                    <strong class="me-auto">${type.charAt(0).toUpperCase() + type.slice(1)}</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    ${message}
+                </div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Remove toast after 3 seconds
+            setTimeout(() => {
+                const toastElement = document.getElementById(toastId);
+                if (toastElement) {
+                    toastElement.remove();
+                }
+            }, 3000);
+        }
+        
+        // Initialize cart
+        updateCart();
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
